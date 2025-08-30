@@ -1,0 +1,161 @@
+{% doc %}
+  @param {object} image - The slide image object (rendered via {% render 'picture' %}).
+  @param {string} media_side - Image side within the slide layout: "image-left" | "image-right".
+  @param {color}  pane_bg - Background color for the content pane.
+  @param {color}  pane_text - Text color for the content pane.
+  @param {string} big_title - Large heading shown on the pane (optional).
+  @param {richtext} text - Copy shown under the tags list (optional).
+
+  @description
+  Renders a single Swiper slide with an image area (hosting positioned hotspots) and a grey content pane with a tags list
+  (built from child Hotspot blocks). First tag/hotspot becomes active on initial render. Requires in the section:
+  CSS files "component-hotspot-slide.css" and "component-hotspot.css", and a JS file "component-hotspot-slide.js".
+  Swiper is initialized via the project snippet 'slider-attribute'; images are rendered via the 'picture' snippet.
+
+  @example
+  <div class="swiper" {% render 'slider-attribute', config: slider_config, is_observable: true %}>
+    <div class="swiper-wrapper">
+      {% content_for 'blocks' %} {# each hotspot-slide outputs its own .swiper-slide #}
+    </div>
+  </div>
+{% enddoc %}
+
+<div
+  class="hsw__slide{% if section.blocks[0].id == block.id %} hsw__slide--active{% endif %}"
+  style="--hsw-pane-text: {{ block.settings.pane_text }}"
+>
+  <div class="hsw__item hsw__item--{{ block.settings.media_side }}">
+    <div class="hsw__media">
+      {% unless block.settings.image == blank %}
+        {% render 'picture',
+          image: block.settings.image,
+          widths_list: '350,800',
+          loading: 'lazy',
+          fetchpriority: 'low',
+          class: 'hsw__image'
+        %}
+      {% endunless %}
+
+      <div class="hsw__spots">
+        {% content_for 'blocks' %}
+      </div>
+    </div>
+
+    <div
+      class="hsw__content"
+      style="--hsw-pane-bg: {{ block.settings.pane_bg }};"
+    >
+      <ul class="hsw__tags" role="list" data-tags-for="{{ block.id }}"></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    'use strict';
+
+    const slide = document.querySelector('#shopify-block-{{ block.id }}');
+    if (!slide) return;
+
+    const tagsList = slide.querySelector('.hsw__tags');
+    if (!tagsList) return;
+
+    const getSpots = () => Array.from(slide.querySelectorAll('.hsw__spots .hsw__spot'));
+
+    function activate(spot, btn) {
+      slide.querySelectorAll('.hsw__spot').forEach((x) => x.classList.remove('is-active'));
+      slide.querySelectorAll('.hsw__tag-btn').forEach((x) => x.classList.remove('is-active'));
+      if (spot) spot.classList.add('is-active');
+      if (btn) btn.classList.add('is-active');
+    }
+
+    function buildTags() {
+      const spots = getSpots();
+      tagsList.innerHTML = '';
+
+      let firstBtn = null,
+        firstSpot = null;
+
+      spots.forEach((spot, idx) => {
+        const title = spot.dataset.title || 'Hotspot';
+
+        const li = document.createElement('li');
+        li.className = 'hsw__tag';
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'hsw__tag-btn';
+        btn.textContent = title;
+        btn.dataset.targetSpot = spot.id;
+
+        li.appendChild(btn);
+        tagsList.appendChild(li);
+
+        const bind = () => activate(spot, btn);
+        // tag ⇄ spot синхронизация
+        btn.addEventListener('mouseenter', bind);
+        btn.addEventListener('focus', bind);
+        btn.addEventListener('click', bind);
+        spot.addEventListener('mouseenter', bind);
+        spot.addEventListener('focus', bind);
+        spot.addEventListener('click', bind);
+
+        if (idx === 0) {
+          firstBtn = btn;
+          firstSpot = spot;
+        }
+      });
+
+      if (firstBtn && firstSpot) activate(firstSpot, firstBtn);
+    }
+
+    buildTags();
+
+    if (window.Shopify && Shopify.designMode) {
+      document.addEventListener('shopify:block:select', (e) => {
+        if (slide.contains(e.target)) buildTags();
+      });
+      document.addEventListener('shopify:block:deselect', (e) => {
+        if (slide.contains(e.target)) buildTags();
+      });
+      document.addEventListener('shopify:section:load', (e) => {
+        if (e.target && e.target.contains(slide)) buildTags();
+      });
+      document.addEventListener('shopify:section:reorder', buildTags);
+    }
+
+    const spotsHost = slide.querySelector('.hsw__spots');
+    if (spotsHost && 'MutationObserver' in window) {
+      new MutationObserver(() => buildTags()).observe(spotsHost, { childList: true, subtree: true });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Hotspot slide",
+  "class": "swiper-slide",
+  "blocks": [
+    { "type": "@theme" }, // allow nested theme blocks (hotspots)
+    { "type": "hotspot" } // recommend the hotspot block
+  ],
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "media_side",
+      "label": "Image side",
+      "default": "image-left",
+      "options": [
+        { "value": "image-left", "label": "Left" },
+        { "value": "image-right", "label": "Right" }
+      ]
+    },
+    { "type": "color", "id": "pane_bg", "label": "Content pane background", "default": "#5E6871" },
+    { "type": "color", "id": "pane_text", "label": "Content pane text color", "default": "#FFFFFF" },
+    { "type": "text", "id": "big_title", "label": "Large title (on pane)", "default": "NIACINAMIDE" },
+    { "type": "richtext", "id": "text", "label": "Text under tags", "default": "<p>Lorem ipsum dolor sit amet.</p>" }
+  ],
+  "presets": [{ "name": "Hotspot slide" }]
+}
+{% endschema %}

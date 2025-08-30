@@ -1,0 +1,41 @@
+{% doc %}
+  @param {number} padding_top - Top padding in pixels for desktop.
+  @param {number} padding_bottom - Bottom padding in pixels for desktop.
+  @param {number} padding_top_mobile - Top padding in pixels for mobile (optional).
+  @param {number} padding_bottom_mobile - Bottom padding in pixels for mobile (optional).
+
+  @description
+  Renders a stylesheet tag that applies top/bottom padding for the section on desktop and mobile. Add the class
+  `section-{{ section.id }}--padding` to the container you want padded.
+
+  @example
+  {% render 'section-paddings',
+    padding_top: section.settings.padding_top,
+    padding_bottom: section.settings.padding_bottom,
+    padding_top_mobile: section.settings.padding_top_mobile,
+    padding_bottom_mobile: section.settings.padding_bottom_mobile
+  %}
+
+  <div class="page-width section-{{ section.id }}--padding">…</div>
+{% enddoc %}
+
+{%- liquid
+  assign padding_top = padding_top | append: 'px'
+  assign padding_bottom = padding_bottom | append: 'px'
+  assign padding_top_mobile = padding_top_mobile | default: padding_top | append: 'px'
+  assign padding_bottom_mobile = padding_bottom_mobile | default: padding_bottom | append: 'px'
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}--padding {
+    padding-top: {{ padding_top }};
+    padding-bottom: {{ padding_bottom }};
+  }
+
+  @media(max-width: 749px) {
+    .section-{{ section.id }}--padding {
+      padding-top: {{ padding_top_mobile }};
+      padding-bottom: {{ padding_bottom_mobile }};
+    }
+  }
+{%- endstyle -%}

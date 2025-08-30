@@ -1,0 +1,49 @@
+.hsw__spot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+.hsw__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.hsw__spot.is-active .hsw__dot,
+.hsw__spot:hover .hsw__dot {
+    background: var(--hsw-pane-text);
+    opacity: 1;
+}
+
+.hsw__bubble {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--hsw-pane-text);
+    font-size: 16px;
+    font-weight: 400;
+    width: 335px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease;
+}
+
+.hsw__spot.is-active .hsw__bubble,
+.hsw__spot:hover .hsw__bubble {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media screen and (max-width: 768px) {
+    .hsw__bubble {
+        font-size: 13px;
+        max-width: 248px;
+    }
+}

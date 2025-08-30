@@ -1,0 +1,42 @@
+{% doc %}
+  @param {string} config - JSON string with Swiper configuration captured via {% capture %}. Important: use only double quotes (") in the JSON.
+  @param {boolean} is_mobile_only - Initialize the slider only on mobile devices (optional).
+  @param {boolean} is_observable - Initialize the slider when it becomes visible in the viewport (optional).
+
+  @description
+  Attaches data-attributes to the host element to create a Swiper.js instance according to the provided configuration.
+
+  @example
+  {% capture slider_config %}
+    {
+      "slidesPerView": "auto",
+      "allowTouchMove": true,
+      "loop": true,
+      "speed": 600,
+      "navigation": { "nextEl": ".btn-next", "prevEl": ".btn-prev" }
+    }
+  {% endcapture %}
+
+  <div class="swiper"
+    {% render 'slider-attribute',
+      config: slider_config,
+      is_mobile_only: true,
+      is_observable: true
+    %}
+  >
+    <div class="swiper-wrapper">…</div>
+  </div>
+{% enddoc %}
+
+{% liquid 
+    if config == blank
+        break
+    endif
+
+    assign is_mobile_only = is_mobile_only | default: false
+    assign is_observable = is_observable | default: false
+%}
+
+{% if config != blank %}
+    data-slider-selector data-config='{{- config -}}' data-mobile="{{- is_mobile_only -}}" data-observer="{{- is_observable -}}"     
+{% endif %}

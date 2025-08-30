@@ -1,0 +1,72 @@
+{% doc %}
+  @param {object} image - Main image object to render.
+  @param {object} image_mobile - Mobile image object used below the mobile breakpoint (optional).
+  @param {number} mobile_breakpoint - CSS pixel breakpoint for swapping to the mobile image (optional).
+  @param {string} widths_list - Comma-separated widths list for responsive `widths` optimization (e.g., "350,800") (optional).
+
+  @param {enum: 'lazy' | 'eager'} loading - The `loading` attribute for the `<img>` (optional).
+  @param {enum: 'high' | 'low' | 'auto'} fetchpriority - The `fetchpriority` attribute for the `<img>` (optional).
+
+  @param {string} class - Extra class applied to the `<img>` element (optional).
+
+  @description
+  Renders a `<picture>` element with an `<img>` fallback, optionally swapping to a mobile-specific image below the given breakpoint.
+
+  @example
+  {% render 'picture',
+    image: section.settings.image,
+    image_mobile: section.settings.image_mobile,
+    mobile_breakpoint: 750,
+    widths_list: '350,800',
+    loading: 'lazy',
+    fetchpriority: 'low',
+    class: 'hero__image'
+  %}
+{% enddoc %}
+
+{% liquid
+  if image == blank
+    break
+  endif
+  assign fetchpriority = fetchpriority | default: 'low'
+  assign loading = loading | default: 'lazy'
+  assign image_alt = image.alt | default: shop.name | escape
+  assign widths_list = widths_list | default: '360,480,720,1440,1800,2160,2880,3600,4320,5760' | split: ','
+  assign mobile_breakpoint = mobile_breakpoint | default: 750
+  assign widths = ''
+  assign widths_mobile = ''
+  for width in widths_list
+    assign width_int = width | plus: 0
+    if image.width >= width_int and width_int > mobile_breakpoint
+      assign widths = widths | append: width | append: ','
+    endif
+
+    if image_mobile != blank
+      if image.width > width_int and width_int < mobile_breakpoint
+        assign image_url = image_mobile | image_url: width: width
+        assign widths_mobile = widths_mobile | append: ',' | append: image_url | append: ' ' | append: width | append: 'w'
+      endif
+    endif
+  endfor
+
+  assign widths = widths | append: image.width
+  assign widths_mobile = widths_mobile | remove_first: ','
+%}
+
+<picture>
+  {% if image_mobile != blank %}
+    <source srcset="{{ widths_mobile }}" media="(max-width: {{ mobile_breakpoint }}px)">
+  {% endif %}
+
+  {{
+    image
+    | image_url: width: image.width
+    | image_tag:
+      sizes: '100vw',
+      widths: widths,
+      fetchpriority: fetchpriority,
+      loading: loading,
+      alt: image_alt,
+      class: class
+  }}
+</picture>

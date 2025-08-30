@@ -1,75 +1,158 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hotspots_Y9dKD6": {
+      "type": "hotspots",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "hotspot_slide_w8Eg4d": {
+          "type": "hotspot-slide",
+          "name": "Hotspot slide",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
-          }
+            "image": "shopify:\/\/shop_images\/image_69.png",
+            "media_side": "image-left",
+            "pane_bg": "#58656f",
+            "pane_text": "#FFFFFF",
+            "big_title": "NIACINAMIDE",
+            "text": "<p>Lorem ipsum dolor sit amet.<\/p>"
+          },
+          "blocks": {
+            "hotspot_QzemKD": {
+              "type": "hotspot",
+              "name": "Hotspot",
+              "settings": {
+                "title": "NIACINAMIDE",
+                "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
+                "pos_x": 58,
+                "pos_y": 65
+              },
+              "blocks": {}
+            },
+            "hotspot_VFbmCi": {
+              "type": "hotspot",
+              "name": "Hotspot",
+              "settings": {
+                "title": "PEPTIDES",
+                "caption": "Short caption under hotspot",
+                "pos_x": 60,
+                "pos_y": 40
+              },
+              "blocks": {}
+            },
+            "hotspot_JCn8p7": {
+              "type": "hotspot",
+              "name": "Hotspot",
+              "settings": {
+                "title": "HIALURONIC ACID",
+                "caption": "Short caption under hotspot",
+                "pos_x": 36,
+                "pos_y": 40
+              },
+              "blocks": {}
+            },
+            "hotspot_G9nEtt": {
+              "type": "hotspot",
+              "name": "Hotspot",
+              "settings": {
+                "title": "MARULA OIL",
+                "caption": "Short caption under hotspot",
+                "pos_x": 60,
+                "pos_y": 19
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "hotspot_QzemKD",
+            "hotspot_VFbmCi",
+            "hotspot_JCn8p7",
+            "hotspot_G9nEtt"
+          ]
         },
-        "button": {
-          "type": "buttons",
+        "hotspot_slide_KqUDKx": {
+          "type": "hotspot-slide",
+          "name": "Hotspot slide",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify:\/\/collections\/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
+            "image": "shopify:\/\/shop_images\/image_69.png",
+            "media_side": "image-left",
+            "pane_bg": "#5E6871",
+            "pane_text": "#FFFFFF",
+            "big_title": "NIACINAMIDE",
+            "text": "<p>Lorem ipsum dolor sit amet.<\/p>"
+          },
+          "blocks": {
+            "hotspot_n4pwTP": {
+              "type": "hotspot",
+              "name": "Hotspot",
+              "settings": {
+                "title": "NIACINAMIDE",
+                "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
+                "pos_x": 60,
+                "pos_y": 73
+              },
+              "blocks": {}
+            },
+            "hotspot_fE9kUK": {
+              "type": "hotspot",
+              "name": "Hotspot",
+              "settings": {
+                "title": "peptides",
+                "caption": "Short caption under hotspot",
+                "pos_x": 60,
+                "pos_y": 40
+              },
+              "blocks": {}
+            },
+            "hotspot_dMHM49": {
+              "type": "hotspot",
+              "name": "Hotspot",
+              "settings": {
+                "title": "hialuronic acid",
+                "caption": "Short caption under hotspot",
+                "pos_x": 36,
+                "pos_y": 40
+              },
+              "blocks": {}
+            },
+            "hotspot_ENnRhi": {
+              "type": "hotspot",
+              "name": "Hotspot",
+              "settings": {
+                "title": "Marula oil",
+                "caption": "Short caption under hotspot",
+                "pos_x": 60,
+                "pos_y": 19
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "hotspot_n4pwTP",
+            "hotspot_fE9kUK",
+            "hotspot_dMHM49",
+            "hotspot_ENnRhi"
+          ]
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "hotspot_slide_w8Eg4d",
+        "hotspot_slide_KqUDKx"
       ],
+      "name": "Hotspots Slider (Theme blocks)",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "heading": "NO BULLSHIT INSIDE",
+        "section_bg": "#ffffff",
+        "title_color": "#111111",
+        "arrow_color": "#ffffff",
+        "arrow_bg": "#121212",
+        "hover_color": "#FFFFFF",
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hotspots_Y9dKD6"
   ]
 }

@@ -1,0 +1,68 @@
+{% doc %}
+  @param {string} title - Label used in the slide’s tags list.
+  @param {string} caption - Small caption under the hotspot dot (optional).
+  @param {number} pos_x - X position (0–100) relative to the image (percent).
+  @param {number} pos_y - Y position (0–100) relative to the image (percent).
+
+  @description
+  Renders a positioned interactive hotspot button on the image surface. Its "title" is consumed by the parent
+  hotspot-slide to build the grey-pane tags list. Styling comes from "component-hotspot.css". No separate JS is needed
+  for this block: behavior (tag ↔ hotspot sync, initial active) is handled by "component-hotspot-slide.js" included by the section.
+
+  @example
+  {% comment %}
+    Add this block as a child of "Hotspot slide" via the Theme Editor.
+    The parent slide will render the hotspot and build the tags list automatically.
+  {% endcomment %}
+{% enddoc %}
+
+{% style %}
+  #spot-{{ block.id }}{ top: {{ block.settings.pos_y | default: 50 }}%; left: {{ block.settings.pos_x | default: 50 }}%; }
+{% endstyle %}
+
+<button
+  id="spot-{{ block.id }}"
+  type="button"
+  class="hsw__spot"
+  {% unless block.settings.title == blank %}
+    aria-label="{{ block.settings.title | escape }}"
+    data-title="{{ block.settings.title | escape }}"
+  {% endunless %}
+>
+  <span class="hsw__dot"></span>
+  {% unless block.settings.caption == blank %}
+    <span class="hsw__bubble">{{ block.settings.caption }}</span>
+  {% endunless %}
+</button>
+
+{% schema %}
+{
+  "name": "Hotspot",
+  "tag": "block",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Tag (label in the list)", "default": "NIACINAMIDE" },
+    { "type": "text", "id": "caption", "label": "Caption under dot", "default": "Short caption under hotspot" },
+    {
+      "type": "range",
+      "id": "pos_x",
+      "label": "Position X",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "pos_y",
+      "label": "Position Y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 40
+    }
+  ],
+  "presets": [{ "name": "Hotspot" }]
+}
+{% endschema %}
