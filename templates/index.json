@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hotspots_Y9dKD6": {
@@ -7,12 +16,12 @@
           "type": "hotspot-slide",
           "name": "Hotspot slide",
           "settings": {
-            "image": "shopify:\/\/shop_images\/image_69.png",
+            "image": "shopify://shop_images/image_69.png",
             "media_side": "image-left",
             "pane_bg": "#58656f",
-            "pane_text": "#FFFFFF",
+            "pane_text": "#ffffff",
             "big_title": "NIACINAMIDE",
-            "text": "<p>Lorem ipsum dolor sit amet.<\/p>"
+            "text": "<p>Lorem ipsum dolor sit amet.</p>"
           },
           "blocks": {
             "hotspot_QzemKD": {
@@ -71,12 +80,12 @@
           "type": "hotspot-slide",
           "name": "Hotspot slide",
           "settings": {
-            "image": "shopify:\/\/shop_images\/image_69.png",
+            "image": "shopify://shop_images/eminem-confused.gif",
             "media_side": "image-left",
-            "pane_bg": "#5E6871",
-            "pane_text": "#FFFFFF",
+            "pane_bg": "#5e6871",
+            "pane_text": "#ffffff",
             "big_title": "NIACINAMIDE",
-            "text": "<p>Lorem ipsum dolor sit amet.<\/p>"
+            "text": "<p>Lorem ipsum dolor sit amet.</p>"
           },
           "blocks": {
             "hotspot_n4pwTP": {
@@ -143,7 +152,7 @@
         "title_color": "#111111",
         "arrow_color": "#ffffff",
         "arrow_bg": "#121212",
-        "hover_color": "#FFFFFF",
+        "hover_color": "#ffffff",
         "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60,
